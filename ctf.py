@@ -7,10 +7,6 @@ def encode(msg, key):
     key = (key * (len(msg) // len(key) + 1))[:len(msg)]
     return ''.join(chr(((ord(m) - (65 if m.isupper() else 97) + (ord(k) - (65 if k.isupper() else 97))) % 26) + (65 if m.isupper() else 97)) if m.isalpha() else m for m, k in zip(msg, key))
 
-def decode(msg, key):
-    key = (key * (len(msg) // len(key) + 1))[:len(msg)]
-    return ''.join(chr(((ord(m) - (65 if m.isupper() else 97) - (ord(k) - (65 if k.isupper() else 97)) + 26) % 26) + (65 if m.isupper() else 97)) if m.isalpha() else m for m, k in zip(msg, key))
-
 def hide(img_path, flag, key):
     img = np.array(Image.open(img_path), dtype=np.uint8)
     flag = encode(flag, key)
